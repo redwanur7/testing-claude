@@ -1,0 +1,413 @@
+<title>Graph Paper Tic-Tac-Toe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --paper: #eef4f0;
+    --grid: #cfe0d5;
+    --grid-strong: #b5ccbd;
+    --ink: #22302b;
+    --muted: #5b6d66;
+    --x: #22302b;
+    --o: #2f5bd3;
+    --win: #d9482b;
+    --panel: #ffffff;
+    --line: #d7e3db;
+    --focus: #2f5bd3;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #151d1a;
+      --grid: #1f2b27;
+      --grid-strong: #2c3c36;
+      --ink: #e4ede8;
+      --muted: #93a79f;
+      --x: #e4ede8;
+      --o: #86a6ff;
+      --win: #ff7a5c;
+      --panel: #1b2521;
+      --line: #2c3c36;
+      --focus: #86a6ff;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #151d1a;
+    --grid: #1f2b27;
+    --grid-strong: #2c3c36;
+    --ink: #e4ede8;
+    --muted: #93a79f;
+    --x: #e4ede8;
+    --o: #86a6ff;
+    --win: #ff7a5c;
+    --panel: #1b2521;
+    --line: #2c3c36;
+    --focus: #86a6ff;
+  }
+
+  html, body { min-height: 100%; }
+  body {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    color: var(--ink);
+    font-family: var(--mono);
+    padding-inline: 16px;
+    padding-block: 32px 48px;
+  }
+
+  .wrap {
+    max-width: 440px;
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+  }
+
+  header { display: grid; gap: 4px; }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2rem, 8vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 .o { color: var(--o); }
+  .sub { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: end;
+  }
+  .field { display: grid; gap: 6px; }
+  .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .seg {
+    display: inline-flex;
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--panel);
+  }
+  .seg button {
+    font: 600 13px var(--mono);
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    padding: 7px 12px;
+    cursor: pointer;
+  }
+  .seg button + button { border-left: 1.5px solid var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .seg button:focus-visible, .cell:focus-visible, .btn:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .board-wrap { position: relative; }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    aspect-ratio: 1;
+    max-width: 100%;
+  }
+  .cell {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    color: var(--ink);
+  }
+  .cell:nth-child(-n+6) { border-bottom: 3px solid var(--ink); }
+  .cell:not(:nth-child(3n)) { border-right: 3px solid var(--ink); }
+  .cell:disabled { cursor: default; }
+  .cell:not(:disabled):hover::after {
+    content: "";
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: var(--ink);
+    opacity: 0.06;
+  }
+  .cell svg { position: absolute; inset: 14%; width: 72%; height: 72%; overflow: visible; }
+  .cell path, .cell circle {
+    fill: none;
+    stroke-width: 9;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 260ms ease-out forwards;
+  }
+  .cell .mx { stroke: var(--x); }
+  .cell .mx:nth-child(2) { animation-delay: 140ms; }
+  .cell .mo { stroke: var(--o); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .strike {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .strike line {
+    stroke: var(--win);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 380ms 120ms ease-out forwards;
+  }
+
+  .status {
+    min-height: 1.5em;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  .status .x { color: var(--x); font-weight: 800; }
+  .status .o { color: var(--o); font-weight: 800; }
+
+  .score {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    background: var(--panel);
+  }
+  .score div { padding: 10px 12px; display: grid; gap: 2px; }
+  .score div + div { border-left: 1.5px dashed var(--line); }
+  .score b {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    font: 600 13px var(--mono);
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+  }
+  .btn.ghost { background: var(--panel); color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cell path, .cell circle, .strike line { animation: none; stroke-dashoffset: 0; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Tic-Tac-T<span class="o">o</span>e</h1>
+    <p class="sub">You play X. The computer plays <span style="color:var(--o)">O</span>.</p>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <span class="label" id="lvl-label">Difficulty</span>
+      <div class="seg" role="group" aria-labelledby="lvl-label" id="level">
+        <button type="button" data-v="easy">Easy</button>
+        <button type="button" data-v="medium">Medium</button>
+        <button type="button" data-v="hard">Hard</button>
+      </div>
+    </div>
+    <div class="field">
+      <span class="label" id="first-label">First move</span>
+      <div class="seg" role="group" aria-labelledby="first-label" id="first">
+        <button type="button" data-v="you">You</button>
+        <button type="button" data-v="cpu">Computer</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="status" id="status" aria-live="polite"></p>
+
+  <div class="board-wrap">
+    <div class="board" id="board" role="grid" aria-label="Tic-tac-toe board"></div>
+    <svg class="strike" id="strike" viewBox="0 0 30 30" aria-hidden="true"></svg>
+  </div>
+
+  <div class="score" aria-label="Score">
+    <div><span class="label">You</span><b id="s-win">0</b></div>
+    <div><span class="label">Draws</span><b id="s-draw">0</b></div>
+    <div><span class="label">Computer</span><b id="s-loss">0</b></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="button" id="again">New game</button>
+    <button class="btn ghost" type="button" id="reset">Reset score</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("ttt-" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("ttt-" + k, JSON.stringify(v)); } catch {} }
+  };
+
+  let level = store.get("level", "hard");
+  let first = store.get("first", "you");
+  let score = store.get("score", { win: 0, draw: 0, loss: 0 });
+  let board, over, busy;
+
+  const $ = id => document.getElementById(id);
+  const boardEl = $("board"), statusEl = $("status"), strikeEl = $("strike");
+
+  const cells = Array.from({ length: 9 }, (_, i) => {
+    const b = document.createElement("button");
+    b.className = "cell";
+    b.type = "button";
+    b.setAttribute("role", "gridcell");
+    b.addEventListener("click", () => play(i));
+    boardEl.appendChild(b);
+    return b;
+  });
+
+  function winner(b) {
+    for (const l of LINES) {
+      const [a, c, d] = l;
+      if (b[a] && b[a] === b[c] && b[a] === b[d]) return { mark: b[a], line: l };
+    }
+    return b.every(Boolean) ? { mark: null } : null;
+  }
+
+  // Minimax with depth so the computer prefers quick wins and slow losses.
+  function minimax(b, turn, depth) {
+    const w = winner(b);
+    if (w) return { score: w.mark === "O" ? 10 - depth : w.mark === "X" ? depth - 10 : 0 };
+    let best = { score: turn === "O" ? -Infinity : Infinity, move: -1 };
+    for (let i = 0; i < 9; i++) {
+      if (b[i]) continue;
+      b[i] = turn;
+      const r = minimax(b, turn === "O" ? "X" : "O", depth + 1);
+      b[i] = null;
+      if (turn === "O" ? r.score > best.score : r.score < best.score) best = { score: r.score, move: i };
+    }
+    return best;
+  }
+
+  function randomMove(b) {
+    const open = b.map((v, i) => v ? -1 : i).filter(i => i >= 0);
+    return open[Math.floor(Math.random() * open.length)];
+  }
+
+  function cpuMove() {
+    const smart = level === "hard" || (level === "medium" && Math.random() < 0.6);
+    return smart ? minimax(board.slice(), "O", 0).move : randomMove(board);
+  }
+
+  function draw(i) {
+    const m = board[i];
+    const c = cells[i];
+    c.innerHTML = m === "X"
+      ? '<svg viewBox="0 0 100 100"><path class="mx" pathLength="1" d="M15 15 L85 85"/><path class="mx" pathLength="1" d="M85 15 L15 85"/></svg>'
+      : '<svg viewBox="0 0 100 100"><circle class="mo" pathLength="1" cx="50" cy="50" r="36" transform="rotate(-90 50 50)"/></svg>';
+    c.disabled = true;
+    c.setAttribute("aria-label", `Row ${Math.floor(i / 3) + 1}, column ${i % 3 + 1}: ${m}`);
+  }
+
+  function setStatus(html) { statusEl.innerHTML = html; }
+
+  function finish(w) {
+    over = true;
+    cells.forEach(c => c.disabled = true);
+    if (w.mark === "X") { score.win++; setStatus('<span class="x">You win.</span> Nicely played.'); }
+    else if (w.mark === "O") { score.loss++; setStatus('<span class="o">Computer wins.</span> Try again?'); }
+    else { score.draw++; setStatus("Draw. Nobody gets three in a row."); }
+    if (w.line) {
+      const pt = i => [(i % 3) * 10 + 5, Math.floor(i / 3) * 10 + 5];
+      let [x1, y1] = pt(w.line[0]), [x2, y2] = pt(w.line[2]);
+      const dx = Math.sign(x2 - x1) * 3.5, dy = Math.sign(y2 - y1) * 3.5;
+      strikeEl.innerHTML = `<line pathLength="1" x1="${x1 - dx}" y1="${y1 - dy}" x2="${x2 + dx}" y2="${y2 + dy}"/>`;
+    }
+    store.set("score", score);
+    renderScore();
+  }
+
+  function after() {
+    const w = winner(board);
+    if (w) { finish(w); return true; }
+    return false;
+  }
+
+  function computerTurn() {
+    busy = true;
+    setStatus('<span class="o">Computer</span> is thinking…');
+    setTimeout(() => {
+      const i = cpuMove();
+      board[i] = "O";
+      draw(i);
+      busy = false;
+      if (!after()) setStatus('Your move. Place an <span class="x">X</span>.');
+    }, 420);
+  }
+
+  function play(i) {
+    if (over || busy || board[i]) return;
+    board[i] = "X";
+    draw(i);
+    if (!after()) computerTurn();
+  }
+
+  function newGame() {
+    board = Array(9).fill(null);
+    over = false;
+    busy = false;
+    strikeEl.innerHTML = "";
+    cells.forEach((c, i) => {
+      c.innerHTML = "";
+      c.disabled = false;
+      c.setAttribute("aria-label", `Row ${Math.floor(i / 3) + 1}, column ${i % 3 + 1}: empty`);
+    });
+    if (first === "cpu") computerTurn();
+    else setStatus('Your move. Place an <span class="x">X</span>.');
+  }
+
+  function renderScore() {
+    $("s-win").textContent = score.win;
+    $("s-draw").textContent = score.draw;
+    $("s-loss").textContent = score.loss;
+  }
+
+  function bindSeg(id, get, set) {
+    const btns = $(id).querySelectorAll("button");
+    const sync = () => btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === get())));
+    btns.forEach(b => b.addEventListener("click", () => { set(b.dataset.v); sync(); newGame(); }));
+    sync();
+  }
+
+  bindSeg("level", () => level, v => { level = v; store.set("level", v); });
+  bindSeg("first", () => first, v => { first = v; store.set("first", v); });
+  $("again").addEventListener("click", newGame);
+  $("reset").addEventListener("click", () => { score = { win: 0, draw: 0, loss: 0 }; store.set("score", score); renderScore(); });
+
+  renderScore();
+  newGame();
+})();
+</script>

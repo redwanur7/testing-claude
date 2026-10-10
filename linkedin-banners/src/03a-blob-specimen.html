@@ -1,0 +1,48 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.b{background:#F5F6F8}
+.grain{opacity:.4}
+svg.art{position:absolute;inset:0}
+.fig{left:440px;top:64px;color:#6B7186}
+.h{left:440px;top:112px;font:500 42px/1.06 Geist;letter-spacing:-.04em;color:#0D1330}
+.cap{left:442px;top:236px;color:#4A5068}
+.coord{right:64px;bottom:40px;color:#8A90A3;text-align:right}
+.lbl{font:500 14px/1 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase;fill:#3C4360}
+.tag{font:500 17px/1 Geist;letter-spacing:-.01em;fill:#fff}
+</style></head><body><div class="b">
+<svg class="art" width="1584" height="396" viewBox="0 0 1584 396">
+  <defs>
+    <filter id="grainy" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="4" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 0" result="n"/>
+      <feComposite in="b" in2="n" operator="arithmetic" k2="1" k3="1" k4="-.8" result="d"/>
+      <feComponentTransfer in="d" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComponentTransfer in="b" result="solid"><feFuncA type="linear" slope="3"/></feComponentTransfer>
+      <feComposite in="solid" in2="mask" operator="in"/>
+    </filter>
+    <radialGradient id="core" cx="56%" cy="44%" r="60%">
+      <stop offset="0" stop-color="#0E0866"/><stop offset=".35" stop-color="#1A22B8"/><stop offset=".7" stop-color="#1E6FE8"/><stop offset="1" stop-color="#52C4F4"/>
+    </radialGradient>
+  </defs>
+  <g filter="url(#grainy)">
+    <path fill="url(#core)" d="M1080 78 C1170 36 1294 66 1322 150 C1344 214 1302 250 1292 300 C1278 350 1180 362 1108 332 C1050 306 1058 262 1018 232 C972 196 1000 110 1080 78 Z"/>
+    <ellipse cx="1070" cy="290" rx="60" ry="42" fill="#3FB6F2"/>
+    <ellipse cx="1040" cy="140" rx="46" ry="40" fill="#8E7CF0"/>
+  </g>
+  <text class="tag" x="1090" y="244">redwanur-rahman®</text>
+  <!-- annotations -->
+  <g stroke="#3C4360" stroke-width="1" fill="none" opacity=".55">
+    <path d="M1300 150 L1340 130 H1420"/><path d="M1284 262 H1420"/><path d="M1196 342 L1236 366 H1420"/>
+  </g>
+  <g fill="#3C4360"><circle cx="1300" cy="150" r="3"/><circle cx="1284" cy="262" r="3"/><circle cx="1196" cy="342" r="3"/></g>
+  <text class="lbl" x="1432" y="135">SEO</text>
+  <text class="lbl" x="1432" y="267">Social</text>
+  <text class="lbl" x="1432" y="371">Content</text>
+</svg>
+<div class="abs mono fig">Fig. 01 — Growth, in motion</div>
+<div class="abs h">Brands that get found,<br>followed and chosen.</div>
+<div class="abs mono cap">Redwanur Rahman — Digital marketing &amp; SEO</div>
+<div class="grain"></div></div></body></html>

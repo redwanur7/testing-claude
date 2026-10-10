@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.b{background:#F5F6F8}
+.grain{opacity:.4}
+svg.art{position:absolute;inset:0}
+.top{left:440px;top:46px;color:#4A5068}
+.lbl{font:500 14px/1 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase;fill:#3C4360}
+.h{font:500 30px/1 Geist;letter-spacing:-.03em;fill:#0D1330}
+</style></head><body><div class="b">
+<svg class="art" width="1584" height="396" viewBox="0 0 1584 396">
+  <defs><filter id="grainy" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="4" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 0" result="n"/>
+      <feComposite in="b" in2="n" operator="arithmetic" k2="1" k3="1" k4="-.8" result="d"/>
+      <feComponentTransfer in="d" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComponentTransfer in="b" result="solid"><feFuncA type="linear" slope="3"/></feComponentTransfer>
+      <feComposite in="solid" in2="mask" operator="in"/>
+    </filter><filter id="gs" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="4" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 0" result="n"/>
+      <feComposite in="b" in2="n" operator="arithmetic" k2="1" k3="1" k4="-.8" result="d"/>
+      <feComponentTransfer in="d" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComponentTransfer in="b" result="solid"><feFuncA type="linear" slope="3"/></feComponentTransfer>
+      <feComposite in="solid" in2="mask" operator="in"/>
+    </filter><radialGradient id="g0" cx="58%" cy="42%" r="62%"><stop offset="0" stop-color="#5B4FE0"/><stop offset="1" stop-color="#8E7CF0"/></radialGradient><radialGradient id="g1" cx="58%" cy="42%" r="62%"><stop offset="0" stop-color="#1A3BC8"/><stop offset="1" stop-color="#4F7BF2"/></radialGradient><radialGradient id="g2" cx="58%" cy="42%" r="62%"><stop offset="0" stop-color="#0E0866"/><stop offset="1" stop-color="#3FB6F2"/></radialGradient></defs>
+  <line x1="440" y1="346" x2="1420" y2="346" stroke="#3C4360" stroke-opacity=".3"/>
+  <path d="M1410 340 L1422 346 L1410 352" fill="none" stroke="#3C4360" stroke-opacity=".5"/>
+  <g filter="url(#gs)"><ellipse cx="560" cy="196" rx="50" ry="43" fill="url(#g0)" transform="rotate(-12 560 196)"/><ellipse cx="800" cy="196" rx="89" ry="77" fill="url(#g1)" transform="rotate(-3 800 196)"/></g>
+  <g filter="url(#grainy)"><ellipse cx="1150" cy="196" rx="149" ry="130" fill="url(#g2)" transform="rotate(6 1150 196)"/></g>
+  <text x="1150" y="204" text-anchor="middle" style="font:500 17px Geist;letter-spacing:-.01em" fill="#fff">redwanur-rahman®</text>
+  <line x1="560" y1="340" x2="560" y2="352" stroke="#3C4360" opacity=".6"/><text class="lbl" x="560" y="378" text-anchor="middle">01 — Found</text><line x1="800" y1="340" x2="800" y2="352" stroke="#3C4360" opacity=".6"/><text class="lbl" x="800" y="378" text-anchor="middle">02 — Followed</text><line x1="1150" y1="340" x2="1150" y2="352" stroke="#3C4360" opacity=".6"/><text class="lbl" x="1150" y="378" text-anchor="middle">03 — Chosen</text>
+</svg>
+<div class="abs mono top">Redwanur Rahman — Digital marketing &amp; SEO strategist</div>
+<div class="grain"></div></div></body></html>

@@ -1,0 +1,12 @@
+/* Shared canvas: LinkedIn banner 1584x396 (rendered at 2x = 3168x792).
+   Keep text out of the profile-photo zone (bottom-left, x < 420 & y > 170)
+   and the camera button (top-right corner). */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1584px;height:396px;overflow:hidden}
+.b{position:relative;width:1584px;height:396px;overflow:hidden;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.abs{position:absolute}
+.blob{position:absolute;border-radius:50%}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-weight:400;font-size:16px;line-height:1.65;letter-spacing:.05em;text-transform:uppercase}
+/* Film grain over everything. */
+.grain{position:absolute;inset:0;pointer-events:none;background-size:220px 220px;mix-blend-mode:overlay;opacity:.38;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}

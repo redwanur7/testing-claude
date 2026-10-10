@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.b{background:#F5F6F8}
+.grain{opacity:.4}
+svg.art{position:absolute;inset:0}
+.top{left:440px;top:52px;color:#4A5068}
+.br{right:64px;bottom:36px;color:#6B7186;text-align:right}
+.big{font:500 168px/1 Geist;letter-spacing:-.065em}
+</style></head><body><div class="b">
+<svg class="art" width="1584" height="396" viewBox="0 0 1584 396">
+  <defs>
+    <filter id="grainy" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="4" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 0" result="n"/>
+      <feComposite in="b" in2="n" operator="arithmetic" k2="1" k3="1" k4="-.8" result="d"/>
+      <feComponentTransfer in="d" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComponentTransfer in="b" result="solid"><feFuncA type="linear" slope="3"/></feComponentTransfer>
+      <feComposite in="solid" in2="mask" operator="in"/>
+    </filter>
+    <radialGradient id="core" cx="56%" cy="44%" r="60%">
+      <stop offset="0" stop-color="#0E0866"/><stop offset=".35" stop-color="#1A22B8"/><stop offset=".7" stop-color="#1E6FE8"/><stop offset="1" stop-color="#52C4F4"/>
+    </radialGradient>
+    <mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="1584" height="396"><g transform="translate(24 10)"><use href="#blob" filter="url(#grainy)" fill="#fff"/></g></mask>
+    <g id="blob"><path d="M930 70 C1030 24 1170 50 1214 130 C1250 196 1216 244 1196 292 C1172 346 1060 368 980 336 C914 310 924 262 884 228 C840 190 860 106 930 70 Z"/></g>
+  </defs>
+  <g filter="url(#grainy)" transform="translate(24 10)">
+    <path fill="url(#core)" d="M930 70 C1030 24 1170 50 1214 130 C1250 196 1216 244 1196 292 C1172 346 1060 368 980 336 C914 310 924 262 884 228 C840 190 860 106 930 70 Z"/>
+    <ellipse cx="930" cy="290" rx="60" ry="42" fill="#3FB6F2"/>
+    <ellipse cx="1170" cy="110" rx="50" ry="40" fill="#8E7CF0"/>
+  </g>
+  <text class="big" x="436" y="268" fill="#0D1330">Get found.</text>
+  <text class="big" x="436" y="268" fill="#FFFFFF" mask="url(#m)">Get found.</text>
+</svg>
+<div class="abs mono top">Redwanur Rahman — Digital marketing &amp; SEO</div>
+<div class="abs mono br">SEO · Social · Content<br>Video · Design</div>
+<div class="grain"></div></div></body></html>

@@ -1,0 +1,7 @@
+/* Shared canvas: LinkedIn banner 1584x396 (rendered at 2x = 3168x792).
+   Keep key content out of the profile-photo zone (bottom-left, x < 420 & y > 170)
+   and away from the far edges, which crop on mobile. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1584px;height:396px;overflow:hidden}
+.b{position:relative;width:1584px;height:396px;overflow:hidden;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.abs{position:absolute}

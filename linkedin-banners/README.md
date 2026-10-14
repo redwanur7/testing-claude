@@ -11,6 +11,9 @@ Ready-to-upload PNGs are in `png/`. They are 3168×792, which is 2× LinkedIn's 
 | `03a-blob-specimen.png` | Blob with grainy edges, labelled like a research figure (SEO / Social / Content) | Geist, Geist Mono |
 | `03b-blob-type.png` | Huge "Get found." that turns white where it crosses the blob | Geist, Geist Mono |
 | `03c-blob-growth.png` | Three blobs growing along a timeline: Found → Followed → Chosen | Geist, Geist Mono |
+| `03d-blob-dark.png` | The grainy blob glowing on near-black | Geist, Geist Mono |
+| `03e-blob-search.png` | A search bar resting on the blob, answered by redwanur-rahman® | Geist, Geist Mono |
+| `03f-blob-merge.png` | Strategy and Story blobs merging into Growth | Geist, Geist Mono |
 | `04-horizon.png` | Night sky with a glowing planet-rise arc | Geist, Geist Mono |
 | `05-aurora.png` | Black aurora with Swiss-grid service labels | Space Grotesk, Geist Mono |
 | `06-twin.png` | Pale background with blue and violet blobs | Inter Tight, Geist Mono |

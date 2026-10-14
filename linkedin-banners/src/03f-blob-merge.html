@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+svg.art{position:absolute;inset:0}
+.b{background:#F5F6F8}
+.grain{opacity:.4}
+.top{left:440px;top:52px;color:#4A5068}
+.h{left:440px;top:116px;font:500 40px/1.08 Geist;letter-spacing:-.04em;color:#0D1330}
+.lbl{font:500 14px 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+</style></head><body><div class="b">
+<svg class="art" width="1584" height="396" viewBox="0 0 1584 396"><defs><filter id="grainy" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="4" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 0" result="n"/>
+      <feComposite in="b" in2="n" operator="arithmetic" k2="1" k3="1" k4="-.8" result="d"/>
+      <feComponentTransfer in="d" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComponentTransfer in="b" result="solid"><feFuncA type="linear" slope="3"/></feComponentTransfer>
+      <feComposite in="solid" in2="mask" operator="in"/>
+    </filter><radialGradient id="core" cx="56%" cy="44%" r="60%">
+      <stop offset="0" stop-color="#0E0866"/><stop offset=".35" stop-color="#1A22B8"/><stop offset=".7" stop-color="#1E6FE8"/><stop offset="1" stop-color="#52C4F4"/>
+    </radialGradient></defs><defs><radialGradient id="v" cx="45%" cy="45%" r="60%"><stop offset="0" stop-color="#3A1FB0"/><stop offset=".6" stop-color="#7B5CF0"/><stop offset="1" stop-color="#B6A6FF"/></radialGradient>
+<radialGradient id="c" cx="55%" cy="50%" r="60%"><stop offset="0" stop-color="#0B4FD8"/><stop offset=".6" stop-color="#2E9BF0"/><stop offset="1" stop-color="#7FD6F8"/></radialGradient></defs>
+<g filter="url(#grainy)"><circle cx="1000" cy="200" r="128" fill="url(#v)"/><circle cx="1210" cy="200" r="128" fill="url(#c)"/><ellipse cx="1105" cy="200" rx="56" ry="96" fill="#0E0866"/></g>
+<text class="lbl" x="930" y="205" fill="#fff">Strategy</text>
+<text class="lbl" x="1236" y="205" fill="#fff">Story</text>
+<text class="lbl" x="1105" y="205" fill="#fff" text-anchor="middle">+</text>
+<line x1="1105" y1="300" x2="1105" y2="352" stroke="#3C4360" stroke-opacity=".6"/>
+<text class="lbl" x="1105" y="374" fill="#3C4360" text-anchor="middle">= Growth</text></svg>
+<div class="abs mono top">Redwanur Rahman — Digital marketing &amp; SEO</div>
+<div class="abs h">Where strategy<br>meets story.</div>
+<div class="abs mono" style="left:442px;top:232px;color:#6B7186">SEO · Social · Content · Video</div>
+<div class="grain"></div></div></body></html>
